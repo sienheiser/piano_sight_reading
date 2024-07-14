@@ -17,7 +17,6 @@ def check_input(input_chord:list,displayed_chord:list) -> bool:
 
 if __name__ == "__main__":
     next_lesson = get_next_lesson(session)
-
     update_lesson(session,next_lesson,num_chords)
 
     #Block for adding individual note data to database
