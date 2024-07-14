@@ -8,21 +8,36 @@ import time
 session = Session(engine)
 num_chords = len(inversion)
 
+def check_input(input_chord:list,displayed_chord:list) -> bool:
+    correct = True
+    for i in range(len(user_input)):
+        if chord[i] != int(user_input[i]):
+            correct = False
+    return correct
+
 if __name__ == "__main__":
     next_lesson = get_next_lesson(session)
 
     update_lesson(session,next_lesson,num_chords)
 
     #Block for adding individual note data to database
-    for i in range(1):
-        start_time = time.time()
-        time.sleep(2.3)
-        end_time = time.time()
+    i = 0
+    while i < 1:
         chord = inversion[i]
-        for note in chord:
-            update_note(session,note,next_lesson,end_time-start_time)
+        start_time = time.time()
+        user_input = input(f"chord {chord}: " ).split(" ")
+        end_time = time.time()
 
-    print(inversion)
+        correct = check_input(user_input,chord)
+        if correct:
+            i = i+1
+            for note in chord:
+                update_note(session,note,next_lesson,end_time-start_time)
+        else:
+            pass
+
+
+    #print(inversion)
     
 
 
