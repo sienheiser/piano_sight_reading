@@ -25,6 +25,9 @@ class Chord:
             inversion = np.roll(inversion,-1)
             self.variations.append(inversion)
 
+    def __repr__(self):
+        return f"Chord({self.root_chord})"
+
     def rng_variation(self) -> np.array:
         return random.choice(self.variations)
 
