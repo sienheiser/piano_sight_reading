@@ -1,10 +1,13 @@
 from database_model import Lesson,Session,text, create_k_class
+from sqlalchemy import Table, select
 
 def get_next_lesson(session:Session) -> int:
     stmt = text("SELECT rowid FROM lesson where rowid = (SELECT MAX(rowid) FROM lesson)")
-    for record in session.execute(stmt):
-        current_lesson = record[0]
-    return current_lesson + 1
+    result = session.execute(stmt).scalar()
+    if result is None:
+      return 1
+    else:
+      return result + 1
 
 def update_note(session:Session, note: int, lesson_ID: int, press_time: float)->None:
     K = create_k_class(note)
